@@ -2,6 +2,7 @@ package com.speer.service.controller
 
 import com.speer.service.dto.request.UserLogInRequest
 import com.speer.service.dto.request.UserSignUpRequest
+import com.speer.service.dto.response.LoginResponse
 import com.speer.service.dto.response.Response
 import com.speer.service.enum.UserCreationStatus
 import com.speer.service.service.UserService
@@ -14,13 +15,9 @@ import org.springframework.web.bind.annotation.*
 class UserController(private val `userService`: UserService) {
 
     @PostMapping("/login")
-    fun login(@RequestBody request: UserLogInRequest): ResponseEntity<Response<String>> {
+    fun login(@RequestBody request: UserLogInRequest): ResponseEntity<LoginResponse> {
         var response = userService.login(request)
-        return ResponseEntity.ok(
-            Response(
-                message = "Login Successful"
-            )
-        )
+        return ResponseEntity.ok(response)
     }
 
     @PostMapping("/signup")
