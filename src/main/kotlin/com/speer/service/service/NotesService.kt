@@ -78,5 +78,11 @@ class NotesService(
             return "Note does not exists for the user ${user.email}"
 
     }
+
+    override fun searchNote(query: String): List<Notes>? {
+        var user = authDetails.getLoggedInUser()
+        return iNotesRepository.findByNoteContaining(query)
+    }
+
 }
 
