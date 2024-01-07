@@ -34,6 +34,9 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
     implementation("org.springframework.boot:spring-boot-starter-security")
 
+    // RATE-LIMIT
+    implementation("io.github.resilience4j:resilience4j-spring-boot2:2.2.0")
+
 }
 
 tasks.withType<KotlinCompile> {
