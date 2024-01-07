@@ -13,4 +13,5 @@ interface INotesService {
     fun editNote(id: Long, request: NoteRequest): Notes?
     fun deleteNote(id: Long): String
     fun shareNote(id: Long, request: EmailRequest): String
+    fun searchNote(query: String): List<Notes>?
 }

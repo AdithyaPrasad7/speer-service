@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface INotesRepository : JpaRepository<Notes, Long> {
-//    fun findAllByUserUserId(userId: Long): List<Notes>
+    fun findByNoteContaining(keywords: String): List<Notes>?
 }
