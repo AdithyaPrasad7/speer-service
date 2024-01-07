@@ -1,11 +1,10 @@
 package com.speer.service.repository
 
-import com.speer.service.model.User
+import com.speer.service.model.Notes
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface IUserRepository : JpaRepository<User, Long> {
-    fun findByEmail(email: String): User?
-
+interface INotesRepository : JpaRepository<Notes, Long> {
+//    fun findAllByUserUserId(userId: Long): List<Notes>
 }
