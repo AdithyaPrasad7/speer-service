@@ -1,5 +1,6 @@
 package com.speer.service.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.speer.service.dto.response.UserResponse
 import jakarta.persistence.*
 import org.springframework.security.core.GrantedAuthority
@@ -27,7 +28,17 @@ data class User(
     var phone: String,
 
     @Column(name = "password")
-    private var password: String
+    private var password: String,
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinTable(
+        name = "user_notes",
+        joinColumns = [JoinColumn(name = "user_id")],
+        inverseJoinColumns = [JoinColumn(name = "note_id")]
+    )
+    val userNotes: MutableList<Notes>? = mutableListOf<Notes>()
+
 ) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return Collections.singleton(SimpleGrantedAuthority("user"))
@@ -66,7 +77,7 @@ data class User(
     }
 
     fun toResponse(): UserResponse {
-        return UserResponse(name = name, email = email, phone = phone)
+        return UserResponse(name = name, email = email, phone = phone, notes = userNotes)
     }
 
 }

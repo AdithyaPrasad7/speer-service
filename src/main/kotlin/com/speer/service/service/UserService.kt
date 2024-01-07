@@ -5,7 +5,9 @@ import com.speer.service.auth.JwtTokenUtil
 import com.speer.service.dto.request.UserLogInRequest
 import com.speer.service.dto.request.UserSignUpRequest
 import com.speer.service.dto.response.LoginResponse
+import com.speer.service.dto.response.UserResponse
 import com.speer.service.enum.UserCreationStatus
+import com.speer.service.model.Notes
 import com.speer.service.model.User
 import com.speer.service.repository.IUserRepository
 import com.speer.service.util.Validation
@@ -22,7 +24,7 @@ class UserService(
 ) : IUserService {
     override fun login(request: UserLogInRequest): LoginResponse {
         val user = this.iUserRepository.findByEmail(request.email)
-            ?: return LoginResponse(message = "user not found!", token = null)
+            ?: return LoginResponse(message = "User not found!", token = null)
 
         authManager.authenticate(
             UsernamePasswordAuthenticationToken(
@@ -57,4 +59,14 @@ class UserService(
             UserCreationStatus.SUCCESS
         }
     }
+
+    override fun getUserByEmail(email: String): User {
+        var user = authDetails.getLoggedInUser()
+        try {
+            return iUserRepository.findByEmail(email)!!
+        } catch (e: Exception) {
+            return User(null, "Invalid User", "Invalid User", "Invalid User", "Invalid User", mutableListOf<Notes>())
+        }
+    }
+
 }
