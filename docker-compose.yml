@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-container
+    environment:
+      POSTGRES_DB: speer-db
+      POSTGRES_USER: speer
+      POSTGRES_PASSWORD: PNb2aAtjBPBKYS
+    networks:
+      - speer-network
+
+  spring-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: speer-service-container
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/speer-db
+      SPRING_DATASOURCE_USERNAME: speer
+      SPRING_DATASOURCE_PASSWORD: PNb2aAtjBPBKYS
+    ports:
+      - "8080:8080"
+    networks:
+      - speer-network
+
+networks:
+  speer-network:
+    driver: bridge
