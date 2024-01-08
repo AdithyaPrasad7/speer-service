@@ -1,6 +1,6 @@
 package com.speer.service
 
-import com.nhaarman.mockitokotlin2.any
+
 import com.nhaarman.mockitokotlin2.whenever
 import com.speer.service.auth.AuthDetails
 import com.speer.service.auth.JwtTokenUtil

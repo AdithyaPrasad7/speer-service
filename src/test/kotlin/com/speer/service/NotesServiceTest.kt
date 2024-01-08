@@ -1,9 +1,7 @@
 package com.speer.service
 
-import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
 import com.speer.service.auth.AuthDetails
-import com.speer.service.auth.JwtTokenUtil
 import com.speer.service.dto.request.NoteRequest
 import com.speer.service.dto.request.EmailRequest
 import com.speer.service.model.User
@@ -20,7 +18,6 @@ import com.speer.service.service.NotesService
 import org.mockito.Mockito.*
 import org.mockito.junit.jupiter.MockitoSettings
 import org.mockito.quality.Strictness
-import org.springframework.security.authentication.AuthenticationManager
 
 
 @ExtendWith(MockitoExtension::class)
@@ -28,12 +25,6 @@ import org.springframework.security.authentication.AuthenticationManager
 class NotesServiceTest {
     @Mock
     private lateinit var iNotesRepository: INotesRepository
-
-    @Mock
-    private lateinit var authManager: AuthenticationManager
-
-    @Mock
-    private lateinit var jwtUtil: JwtTokenUtil
 
     @Mock
     private lateinit var notesService: NotesService
@@ -333,6 +324,36 @@ class NotesServiceTest {
         println("$result")
 
         assert(result == "Note does not exists for the user ${loggedInUser.email}")
+    }
+
+    @Test
+    fun `test searchNote NotesService method when Notes exists based on query search`() {
+        val loggedInUser =
+            User(id = 1, name = "Test User", email = "test@gmail.com", password = "password", phone = "9876543210")
+        val query = "N"
+        val notesList = listOf(Notes(noteId = 1, note = "Note 1"), Notes(noteId = 2, note = "Note 2"))
+
+        whenever(authDetails.getLoggedInUser()).thenReturn(loggedInUser)
+        whenever(iNotesRepository.findByNoteContaining(query)).thenReturn(notesList)
+
+        val result = notesService.searchNote(query)
+
+        assert(result != null)
+        assert(result!!.size == 2)
+    }
+
+    @Test
+    fun `test searchNote NotesService method when Notes does'nt exists based on query search`() {
+        val loggedInUser =
+            User(id = 1, name = "Test User", email = "test@gmail.com", password = "password", phone = "9876543210")
+        val query = "Pna"
+
+        whenever(authDetails.getLoggedInUser()).thenReturn(loggedInUser)
+        whenever(iNotesRepository.findByNoteContaining(query)).thenReturn(null)
+
+        val result = notesService.searchNote(query)
+
+        assert(result == null)
     }
 
 }
