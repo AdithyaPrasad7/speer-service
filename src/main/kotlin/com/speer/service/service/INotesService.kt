@@ -3,7 +3,6 @@ package com.speer.service.service
 import com.speer.service.dto.request.EmailRequest
 import com.speer.service.dto.request.NoteRequest
 import com.speer.service.dto.response.NotesResponse
-import com.speer.service.dto.response.UserResponse
 import com.speer.service.model.Notes
 
 interface INotesService {

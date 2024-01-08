@@ -1,7 +1,7 @@
 # Spring Boot 3.2.1 Project with Java 17
 
 This is a Spring Boot project built with Java 17.
-The project is written with kotlin programming language. 
+The project is written with kotlin programming language.
 
 ## Frameworks and Libraries
 
@@ -25,23 +25,30 @@ The project is written with kotlin programming language.
 - Gradle build tool (recommended)
 
 ## Setup
+
 Install IDE of your choice IntelliJ(recommended)
+
 1. Clone the repository:
 
-   git clone https://github.com/AdithyaPrasad7/speer-service.git
-   cd spring-boot-java17-template
+         git clone https://github.com/AdithyaPrasad7/speer-service.git
+         cd speer-service
 
 ## Building the project
+
     ./gradlew build
 
 ## Running the Application
 
-1. Go to /database folder and run the docker-compose file 
-    docker compose up -d
+1. Go to /database folder and run the docker-compose file
+
+         docker compose up -d
+
 or Customize the application.properties file in the src/main/resources folder for database configuration.
-    
+
 2. Run the Spring Boot application:
-    ./gradlew bootRun
+
+         ./gradlew bootRun
+
 The application will be accessible at http://localhost:8080.
 
 ## Running Tests
@@ -49,5 +56,7 @@ The application will be accessible at http://localhost:8080.
     ./gradlew test
 
 ## Or to run the project without any hassel
-Go to /deploy folder and run the docker-compose file
-    docker compose up --build -d
+
+Go to main folder and run the docker-compose file
+
+      docker compose up --build -d
