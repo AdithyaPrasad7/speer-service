@@ -38,6 +38,11 @@ dependencies {
     // RATE-LIMIT
     implementation("io.github.resilience4j:resilience4j-spring-boot2:2.2.0")
 
+    // TESTING
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.hamcrest:hamcrest-library")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0-RC1")
+
 }
 
 tasks.withType<KotlinCompile> {
